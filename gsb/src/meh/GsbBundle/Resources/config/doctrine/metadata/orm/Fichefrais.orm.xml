@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Fichefrais" table="FicheFrais">
+    <indexes>
+      <index name="FK_FicheFrais_EtatFiche" columns="idEtatFiche"/>
+      <index name="FK_FicheFrais_EtatFraisForfait" columns="idEtatFraisForfait"/>
+      <index name="FK_FicheFrais_EtatFraisHorsClassification" columns="idEtatFraisHorsClassification"/>
+      <index name="FK_FicheFrais_Visiteur" columns="idVisiteur"/>
+    </indexes>
+    <id name="idfiche" type="integer" column="idFiche">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="datecreation" type="date" column="dateCreation" nullable="true"/>
+    <field name="nbjustificatifs" type="integer" column="nbJustificatifs" nullable="true"/>
+    <field name="montantvalide" type="decimal" column="montantValide" precision="10" scale="2" nullable="true"/>
+    <field name="datemodif" type="date" column="dateModif" nullable="true"/>
+    <many-to-one field="idetatfraishorsclassification" target-entity="Etat">
+      <join-columns>
+        <join-column name="idEtatFraisHorsClassification" referenced-column-name="idEtat"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idetatfraisforfait" target-entity="Etat">
+      <join-columns>
+        <join-column name="idEtatFraisForfait" referenced-column-name="idEtat"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idetatfiche" target-entity="Etat">
+      <join-columns>
+        <join-column name="idEtatFiche" referenced-column-name="idEtat"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idvisiteur" target-entity="Visiteur">
+      <join-columns>
+        <join-column name="idVisiteur" referenced-column-name="idVisiteur"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

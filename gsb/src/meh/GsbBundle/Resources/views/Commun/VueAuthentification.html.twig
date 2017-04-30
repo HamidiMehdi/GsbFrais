@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>GsbFrais - Authentification</title>
+
+    {% stylesheets '@mehGsbBundle/Resources/public/bootstrap/css/bootstrap.min.css' %}
+    <link href="{{ asset_url }}" rel="stylesheet" />
+    {% endstylesheets %}
+
+    {% stylesheets '@mehGsbBundle/Resources/public/css/signin.css' %}
+    <link href="{{ asset_url }}" rel="stylesheet" />
+    {% endstylesheets %}
+  </head>
+
+  <body>
+      
+    <div class="container">
+        
+        <div class="form-signin">
+            {% if erreurNdc is not empty %}
+                <div class="alert alert-danger" role="alert"><b>Erreur : </b>{{erreurNdc}}</div>
+            {% endif %}
+            {% if erreurMdp is not empty %}
+                <div class="alert alert-danger" role="alert"><b>Erreur : </b>{{erreurMdp}}</div>
+            {% endif %}
+            <h2 class="form-signin-heading">GSB</h2>
+            {{ form_start(formAuthentification) }}
+            {{ form_widget(formAuthentification.login) }}
+            {{ form_widget(formAuthentification.mdp) }}
+            <table>
+                <tr>
+                    <td>{{ form_widget(formAuthentification.valider) }}</td>
+                    <td>{{ form_widget(formAuthentification.annuler) }}</td>
+                </tr>
+            </table>
+            {{ form_end(formAuthentification) }}
+        </div>
+        
+    </div> 
+    
+  </body>
+</html>
+

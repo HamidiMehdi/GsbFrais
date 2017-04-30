@@ -1,0 +1,62 @@
+
+ # ----------------------- Route commune ----------------------------#
+
+pageAuthentification:
+    path:     /Authentification
+    defaults: { _controller: mehGsbBundle:Commun/Authentification:authentification }
+    
+pageAccueil:
+    path:     /Accueil
+    defaults: { _controller: mehGsbBundle:Commun/Accueil:accueil }
+    
+DeconnexionRetourPageAuthentification:
+    path:     /Deconnexion
+    defaults: { _controller: mehGsbBundle:Commun/Accueil:deconnexion }
+    
+pageChangerMdp:
+    path:     /Changer_mdp
+    defaults: { _controller: mehGsbBundle:Commun/Accueil:pageChangerMdp }
+    
+    
+    
+    
+    
+ # ----------------------- Route pour le visiteur ----------------------------#
+
+pageSaisirFicheFrais:
+    path:     /Saisir_fiche_frais
+    defaults: { _controller: mehGsbBundle:Visiteur/SaisirFicheFrais:pageSaisirFicheFrais }
+
+pageConsulterFicheFrais:
+    path:     /Consulter_fiche_frais
+    defaults: { _controller: mehGsbBundle:Visiteur/ConsulterFicheFrais:pageConsulterFicheFrais }
+    
+delete_hors_forfait_visiteur:
+    path:     /supprimerUnHorsForfait/{id}
+    defaults: { _controller: mehGsbBundle:Visiteur/SaisirFicheFrais:deleteHorsForfait }    
+    
+    
+    
+ # ----------------------- Route pour le comptable ----------------------------#
+    
+pageValiderFrais:
+    path:     /Valider_frais
+    defaults: { _controller: mehGsbBundle:Comptable/ValiderFrais:pageValiderFrais }   
+    
+pageValiderFraisDunVisiteur:
+    path:     /Valider_frais_visiteur/{idFiche}
+    defaults: { _controller: mehGsbBundle:Comptable/ValiderFrais:pageValiderFraisDunVisiteur }   
+    
+updateEtatHorsForfait:
+    path:     /update_etat_hors_forfait/{idFiche}/{idEtat}/{idHorsForfait}
+    defaults: { _controller: mehGsbBundle:Comptable/ValiderFrais:modifierEtatHorsForfait }   
+    
+updateLibelleHorsForfait:
+    path:     /update_libelle_hors_forfait/{idFiche}/{idHorsForfait}/{btn}
+    defaults: { _controller: mehGsbBundle:Comptable/ValiderFrais:modifierLibelleHorsForfait }
+    
+validerFicheFrais:
+    path:     /valider_fiche_frais/{idFiche}
+    defaults: { _controller: mehGsbBundle:Comptable/ValiderFrais:validerFiche }
+
+    

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Lignefraishorsforfait" table="LigneFraisHorsForfait">
+    <indexes>
+      <index name="FK_LigneFraisHorsForfait_FicheFrais" columns="idFiche"/>
+      <index name="FK_LigneFraisHorsForfait_Etat" columns="idEtat"/>
+    </indexes>
+    <id name="idlignefraishorsforfait" type="integer" column="idLigneFraisHorsForfait">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="libelle" type="string" column="libelle" length="200" nullable="true"/>
+    <field name="datefrais" type="date" column="dateFrais" nullable="true"/>
+    <field name="montant" type="decimal" column="montant" precision="10" scale="2" nullable="true"/>
+    <field name="refuser" type="boolean" column="refuser" nullable="true"/>
+    <many-to-one field="idfiche" target-entity="Fichefrais">
+      <join-columns>
+        <join-column name="idFiche" referenced-column-name="idFiche"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idetat" target-entity="Etat">
+      <join-columns>
+        <join-column name="idEtat" referenced-column-name="idEtat"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

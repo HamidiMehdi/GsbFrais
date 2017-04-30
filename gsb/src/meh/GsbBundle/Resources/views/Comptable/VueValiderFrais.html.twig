@@ -1,0 +1,19 @@
+{% extends 'mehGsbBundle::base_accueil.html.twig' %}
+{% block title %}Valider frais{% endblock %}
+{% block titrePage %}Choisir un visiteur et un mois{% endblock %}
+{% block validation_des_frais %}active{% endblock %}
+{% block contenu %}
+    
+    {{ form_start(form) }}
+    <div class="col-lg-3">{{ form_widget(form.visiteurs) }}</div>
+    <div class="col-lg-2">{{ form_widget(form.mois) }}</div>
+    <div class="col-lg-2">{{ form_widget(form.voir) }}</div>
+    {{ form_end(form) }} 
+    
+    {% if aucuneFiche is not empty %}
+        <div class="col-lg-6"><br><h5>{{aucuneFiche}}</h5></div>
+    {% endif %}
+    
+    
+{% endblock %}
+

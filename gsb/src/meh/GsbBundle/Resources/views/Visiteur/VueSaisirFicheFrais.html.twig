@@ -1,0 +1,68 @@
+{% extends 'mehGsbBundle::base_accueil.html.twig' %}
+{% block title %}Saisir fiche de frais {% endblock %}
+{% block titrePage %}Saisir fiche de frais{% endblock %}
+{% block saisie_fiche_de_frais %}active{% endblock %}
+{% block contenu %}
+       
+    <div class='col-lg-4'></div>
+    <div>
+        <h1>{{ moisEtAnnee }}</h1>
+    </div>
+    <div class='col-lg-4'></div>
+    <p>Derniére modification : {{ derniereModif|date('d/m/Y') }}</p>
+    
+    
+    {{ form_start(formFraisForfait) }}
+    <div><h3> Frais Forfait :</h3></div><br>
+    <div class="col-lg-2">{{ form_label(formFraisForfait.repasMidi) }}{{ form_widget(formFraisForfait.repasMidi) }}</div>
+    <div class="col-lg-2">{{ form_label(formFraisForfait.nuitee) }}{{ form_widget(formFraisForfait.nuitee) }}</div>
+    <div class="col-lg-2">{{ form_label(formFraisForfait.etape) }}{{ form_widget(formFraisForfait.etape) }}</div>
+    <div class="col-lg-2">{{ form_label(formFraisForfait.km) }}{{ form_widget(formFraisForfait.km) }}</div>
+    <div class="col-lg-4"><br>{{ form_widget(formFraisForfait.valider) }} {{ form_widget(formFraisForfait.annuler) }}</div>
+    {{ form_end(formFraisForfait) }}   
+    
+    
+    <br>  
+    <div class='col-lg-11'> <hr> </div>
+    <br><br><br><br>
+        
+    
+     {{ form_start(formHorsForfait) }}
+    <div><h3> Hors Forfait :</h3></div><br>
+    <div class="col-lg-2">{{ form_label(formHorsForfait.jour) }}{{ form_widget(formHorsForfait.jour) }}</div>
+    <div class="col-lg-2">{{ form_label(formHorsForfait.mois) }}{{ form_widget(formHorsForfait.mois) }}</div>
+    <div class="col-lg-2">{{ form_label(formHorsForfait.libelle) }}{{ form_widget(formHorsForfait.libelle) }}</div>
+    <div class="col-lg-2">{{ form_label(formHorsForfait.montant) }}{{ form_widget(formHorsForfait.montant) }}</div>
+    <div class="col-lg-4"><br>{{ form_widget(formHorsForfait.ajouter) }}</div>
+    {{ form_end(formHorsForfait) }}<br><br><br>
+   
+    <table width=100% class='table-hover' >
+    {% for unHorsForfait in lesHorsForfait%}
+        <tr>
+            <td> {{unHorsForfait.datefrais|date('d/m/Y') }} </td>
+            <td> {{unHorsForfait.libelle}} </td>
+            <td> {{unHorsForfait.montant}} </td>
+            <td><a href="#" onCLick="deleteHorsForfait({{unHorsForfait.idlignefraishorsforfait}},'{{unHorsForfait.libelle}}', '{{unHorsForfait.montant}}')"><button class='btn btn-danger'>Supprimer</button></a></td>
+        </tr>
+    {% endfor %}    
+    </table>
+    
+    <br>  
+    <div class='col-lg-11'> <hr> </div>
+    <br><br><br><br>
+    
+    
+    {{ form_start(formHorsClassification) }}
+    <div><h3> Hors Classification :</h3></div><br>
+    <div class="col-lg-2">{{ form_label(formHorsClassification.justificatif) }}{{ form_widget(formHorsClassification.justificatif) }}</div>
+    <div class="col-lg-2">{{ form_label(formHorsClassification.montant) }}{{ form_widget(formHorsClassification.montant) }}</div>
+    <div class="col-lg-4"><br>{{ form_widget(formHorsClassification.ajouter) }} {{ form_widget(formHorsClassification.annuler) }}</div>
+    {{ form_end(formHorsClassification) }}  
+    
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+        
+
+{% endblock %}

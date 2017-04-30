@@ -1,0 +1,90 @@
+{% extends 'mehGsbBundle::base_accueil.html.twig' %}
+{% block title %}Consulter fiche de frais {% endblock %}
+{% block titrePage %}Consulter fiche de frais{% endblock %}
+{% block consulter_fiche_de_frais %}active{% endblock %}
+{% block contenu %}
+
+    {{ form_start(form) }}
+    <div class="col-lg-3">{{ form_widget(form.datesPossibles) }}</div>
+    <div class="col-lg-2">{{ form_widget(form.voir) }}</div>
+    {{ form_end(form) }} 
+    
+    {% if fraisForfait|length >=1%}
+    <br><br><br>
+    <div class="col-lg-12"><h3>Frais Forfait</h3></div>
+    <div class="col-lg-6">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Repas midi</th>
+                    <th>Nuitée</th>
+                    <th>Etape</th>
+                    <th>Km</th>
+                    <th>Situation</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td> {{fraisForfait['repasMidi']}} </td>
+                        <td> {{fraisForfait['nuitee']}} </td>
+                        <td> {{fraisForfait['etape']}} </td>
+                        <td> {{fraisForfait['km']}} </td>
+                        <td> {{fraisForfait['etat']}} </td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endif%}
+
+    {% if horsForfait|length >=1%}
+    <br>
+    <div class="col-lg-12"><h3>Hors Forfait</h3></div>
+    <div class="col-lg-6">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Libelle</th>
+                    <th>Montant</th>
+                    <th>Etat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for unHorsForfait in horsForfait%}
+                    <tr>
+                        <td> {{unHorsForfait.datefrais|date('d/m/Y')}} </td>
+                        <td> {{unHorsForfait.libelle}} </td>
+                        <td> {{unHorsForfait.montant}} </td>
+                        <td> {{unHorsForfait.idetat.libelle}} </td>
+                    </tr>
+                {% endfor %}   
+            </tbody>
+        </table>
+    </div>
+    {% endif%}
+
+    {% if ficheFrais|length >=1%}
+    <br>
+    <div class="col-lg-12"><h3>Hors Classification</h3></div>
+    <div class="col-lg-6">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre justificatif</th>
+                    <th>Montant total</th>
+                    <th>Situation</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td> {{ficheFrais.nbJustificatifs}} </td>
+                        <td> {{ficheFrais.montantvalide}} </td>
+                        <td> {{ficheFrais.idetatfraishorsclassification.libelle}} </td>
+                    </tr>  
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+{% endblock %}

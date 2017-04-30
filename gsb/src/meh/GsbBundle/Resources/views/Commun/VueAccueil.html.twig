@@ -1,0 +1,24 @@
+{% extends 'mehGsbBundle::base_accueil.html.twig' %}
+{% block title %}Accueil {% endblock %}
+{% block titrePage %}Accueil{% endblock %}
+{% block accueil %}active{% endblock %}
+{% block contenu %}
+       
+    
+    <center>
+              
+              <h4>Bonjour {{app.session.get('prenom')}} {{app.session.get('nom')}}  </h4>
+              <span class="text-muted">Nom : {{app.session.get('nom')}} </span><br/>
+              <span class="text-muted">Prenom : {{app.session.get('prenom')}}</span><br/>
+              {% if app.session.get('menuComptable') == "activer" %}
+                <span class="text-muted">Profil : Comptable</span>
+              {% endif %}
+              {% if app.session.get('menuVisiteur') == "activer" %}
+                <span class="text-muted">Profil : Visiteur médical</span>
+              {% endif %}
+              
+                          
+    </center>      
+        
+
+{% endblock %}

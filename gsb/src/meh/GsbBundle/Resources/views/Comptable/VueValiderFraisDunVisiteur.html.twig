@@ -1,0 +1,76 @@
+{% extends 'mehGsbBundle::base_accueil.html.twig' %}
+{% block title %}Valider frais{% endblock %}
+{% block titrePage %}Valider la fiche frais de {{visiteur.nom}} {{visiteur.prenom}}{% endblock %}
+{% block validation_des_frais %}active{% endblock %}
+{% block contenu %}<br>
+    
+    {{ form_start(formFraisForfait) }}
+    <div><h3> Frais Forfait :</h3></div>
+    <div class="col-lg-2">{{ form_label(formFraisForfait.repasMidi) }}{{ form_widget(formFraisForfait.repasMidi) }}</div>
+    <div class="col-lg-1">{{ form_label(formFraisForfait.nuitee) }}{{ form_widget(formFraisForfait.nuitee) }}</div>
+    <div class="col-lg-1">{{ form_label(formFraisForfait.etape) }}{{ form_widget(formFraisForfait.etape) }}</div>
+    <div class="col-lg-1">{{ form_label(formFraisForfait.km) }}{{ form_widget(formFraisForfait.km) }}</div>
+    <div class="col-lg-2">{{ form_label(formFraisForfait.etat) }}{{ form_widget(formFraisForfait.etat) }}</div>
+    <div class="col-lg-4"><br>{{ form_widget(formFraisForfait.valider) }} {{ form_widget(formFraisForfait.annuler) }}</div>
+    {{ form_end(formFraisForfait) }}   
+    
+    <br><br><br><br><br>
+    <div><h3> Frais Hors Forfait :</h3></div>
+    <table width=100% class='table-hover' >
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Libelle</th>
+            <th>Montant</th>
+            <th>Situation</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for unHorsForfait in lesHorsForfait%}
+        <tr>
+            <td> {{unHorsForfait.datefrais|date('d/m/Y') }} </td>
+            <td> {{unHorsForfait.libelle}} </td>
+            <td> {{unHorsForfait.montant}} </td>
+            <td> {{unHorsForfait.idetat.libelle}} </td>
+            <td><a href="{{path('updateEtatHorsForfait', {'idFiche': idFiche , 'idEtat': 3, 'idHorsForfait': unHorsForfait.idlignefraishorsforfait })}}"><button class='btn btn-primary'>Validée</button></a></td>
+            <td><a href="{{path('updateEtatHorsForfait', {'idFiche': idFiche , 'idEtat': 4, 'idHorsForfait': unHorsForfait.idlignefraishorsforfait })}}"><button class='btn btn-primary'>Mise en paiement</button></a></td>
+            <td><a href="{{path('updateEtatHorsForfait', {'idFiche': idFiche , 'idEtat': 5, 'idHorsForfait': unHorsForfait.idlignefraishorsforfait })}}"><button class='btn btn-primary'>Rembousée</button></a></td>
+            <td><a href="{{path('updateEtatHorsForfait', {'idFiche': idFiche , 'idEtat': 6, 'idHorsForfait': unHorsForfait.idlignefraishorsforfait })}}"><button class='btn btn-primary'>Enregistré</button></a></td>
+            {% if unHorsForfait.refuser == false %}
+            <td><a href="{{path('updateLibelleHorsForfait', {'idFiche': idFiche, 'idHorsForfait': unHorsForfait.idlignefraishorsforfait, btn: 1 })}}"><button class='btn btn-danger'>Refuser</button></a></td>
+            {% endif %}
+            {% if unHorsForfait.refuser == true %}
+            <td><a href="{{path('updateLibelleHorsForfait', {'idFiche': idFiche, 'idHorsForfait': unHorsForfait.idlignefraishorsforfait, btn: 2 })}}"><button class='btn btn-danger'>Annuler le refus</button></a></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+    
+    {{ form_start(formHorsClassification) }}
+    <br><br>
+    <div><h3> Hors Classification :</h3></div>
+    <div class="col-lg-2">{{ form_label(formHorsClassification.justificatif) }}{{ form_widget(formHorsClassification.justificatif) }}</div>
+    <div class="col-lg-2">{{ form_label(formHorsClassification.montant) }}{{ form_widget(formHorsClassification.montant) }}</div>
+    <div class="col-lg-2">{{ form_label(formHorsClassification.etat) }}{{ form_widget(formHorsClassification.etat) }}</div>
+    <div class="col-lg-4"><br>{{ form_widget(formHorsClassification.ajouter) }} {{ form_widget(formHorsClassification.annuler) }}</div>
+    {{ form_end(formHorsClassification) }}
+    
+    
+    <br><br><br><br>
+    <hr>
+    {% if ficheFrais.idetatfiche.idetat != 3 %}
+    <div class='col-lg-4'></div>
+    <div class="col-lg-4">
+        <a class="btn btn-primary btn-lg btn-block login-button" href="{{path('validerFicheFrais', {'idFiche': idFiche })}}"> Valider la fiche </a>
+    </div>
+    {% else %}
+    <div class='col-lg-4'></div>
+    <div class="col-lg-4">
+        <a class="btn btn-primary btn-lg btn-block login-button" disabled> Fiche deja validé </a>
+    </div>
+    {% endif %}
+    
+    
+    
+{% endblock %}

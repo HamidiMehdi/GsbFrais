@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>GsbFrais - {% block title %}{% endblock %}</title>
+
+    {% stylesheets '@mehGsbBundle/Resources/public/bootstrap/css/bootstrap.min.css' %}
+    <link href="{{ asset_url }}" rel="stylesheet">
+    {% endstylesheets %}
+
+    {% stylesheets '@mehGsbBundle/Resources/public/css/dashboard.css' %}
+    <link href="{{ asset_url }}" rel="stylesheet">
+    {% endstylesheets %}
+    
+    {% javascripts '@mehGsbBundle/Resources/public/js/style.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" >GSB | {{app.session.get('nom')}} {{app.session.get('prenom')}}</a>
+        </div>
+          
+        <div id="navbar" class="navbar-collapse collapse">       
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{path('pageChangerMdp')}}">Changer mdp</a></li>
+            <li><a>|</a></li>
+            <li><a href="{{ path('DeconnexionRetourPageAuthentification') }}">Se déconnecter</a></li>
+          </ul>      
+        </div>
+     
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+              <li class="{% block accueil %}{% endblock %}"><a href="{{ path('pageAccueil')}}">Accueil</a></li>
+              <li><hr></li>
+          {% if app.session.get('menuVisiteur') == "activer" %}
+              <li><h4>Mes frais</h4></li>
+              <li class="{% block saisie_fiche_de_frais %}{% endblock %}"><a href="{{ path('pageSaisirFicheFrais') }}">Saisir fiche de frais </a></li>
+              <li class="{% block consulter_fiche_de_frais %}{% endblock %}"><a href="{{ path('pageConsulterFicheFrais')}}">Consulter fiche de frais</a></li>
+          </ul>
+          {% endif %}
+          {% if app.session.get('menuComptable') == "activer" %}
+              <li><h4>Fiches de frais</h4></li>
+              <li class="{% block validation_des_frais %}{% endblock %}"><a href="{{path('pageValiderFrais')}}">Validation des frais</a></li>
+          </ul>
+          {% endif %}
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">{% block titrePage %}{% endblock %}</h1>
+  
+            {% block contenu %}{% endblock %}
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
